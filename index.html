@@ -7,8 +7,13 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- html2canvas Library for Confirmation Receipt Capture -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- html2canvas Library for Confirmation Receipt Capture (Local + CDN Fallback) -->
+    <script src="html2canvas.min.js"></script>
+    <script>
+        if (typeof html2canvas === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>');
+        }
+    </script>
     
     <style>
         /* Color Palette & Variables */
@@ -2402,29 +2407,50 @@
                 const summaryCard = document.getElementById('rsvp-summary-card');
                 if (!summaryCard) return;
 
+                if (typeof html2canvas === 'undefined') {
+                    alert('Download script is still loading. Please take a screenshot of your confirmation card!');
+                    return;
+                }
+
                 const originalHTML = downloadBtn.innerHTML;
                 downloadBtn.disabled = true;
                 downloadBtn.innerHTML = '<span>Generating Image...</span>';
 
                 try {
+                    // Small delay to ensure layout stability
+                    await new Promise(resolve => setTimeout(resolve, 80));
+
                     const canvas = await html2canvas(summaryCard, {
                         scale: 2,
                         backgroundColor: '#ffffff',
                         useCORS: true,
+                        allowTaint: true,
                         logging: false
                     });
 
-                    const image = canvas.toDataURL('image/png');
                     const guestName = (document.getElementById('summary-guest-name')?.textContent || 'Guest')
                         .trim()
                         .replace(/[^a-zA-Z0-9]/g, '_');
+                    const fileName = `RSVP_Confirmation_${guestName}.png`;
 
-                    const link = document.createElement('a');
-                    link.download = `RSVP_Confirmation_${guestName}.png`;
-                    link.href = image;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    if (canvas.toBlob) {
+                        canvas.toBlob((blob) => {
+                            if (!blob) {
+                                triggerFallbackDownload(canvas, fileName);
+                                return;
+                            }
+                            const blobUrl = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.download = fileName;
+                            link.href = blobUrl;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
+                        }, 'image/png');
+                    } else {
+                        triggerFallbackDownload(canvas, fileName);
+                    }
                 } catch (err) {
                     console.error('[RSVP Download Error]:', err);
                     alert('Could not generate automatic download. Please take a screenshot of the confirmation receipt card!');
@@ -2433,6 +2459,21 @@
                     downloadBtn.innerHTML = originalHTML;
                 }
             });
+        }
+
+        function triggerFallbackDownload(canvas, fileName) {
+            try {
+                const image = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = image;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (err) {
+                console.error('Fallback download failed:', err);
+                alert('Please take a screenshot of the confirmation card above!');
+            }
         }
     });
 </script>
