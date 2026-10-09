@@ -20,7 +20,6 @@ export default function RsvpForm() {
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionData, setSubmissionData] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +66,6 @@ export default function RsvpForm() {
       });
 
       const image = canvas.toDataURL('image/png');
-      setPreviewImage(image);
 
       const nameSlug = (submissionData?.name || 'Guest')
         .trim()
@@ -288,20 +286,6 @@ export default function RsvpForm() {
             </svg>
             <span>{isDownloading ? 'Generating Image...' : 'Download Confirmation'}</span>
           </button>
-
-          {previewImage && (
-            <div className="mt-4 p-4 bg-white border border-slate-200 rounded-xl text-center space-y-3 shadow-sm font-sans">
-              <p className="text-xs font-bold text-[#1D3557]">📸 Confirmation Image Ready!</p>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                If automatic download did not start on your phone, <strong>tap & hold the image below</strong> to save it directly to your Photos or Gallery.
-              </p>
-              <img
-                src={previewImage}
-                alt="RSVP Confirmation Card Preview"
-                className="w-full h-auto rounded-lg border border-slate-200 shadow-sm"
-              />
-            </div>
-          )}
         </div>
       )}
     </div>
