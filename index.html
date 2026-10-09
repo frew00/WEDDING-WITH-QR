@@ -7,6 +7,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <!-- html2canvas Library for Confirmation Receipt Capture -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <style>
         /* Color Palette & Variables */
         :root {
@@ -1192,6 +1195,146 @@
             background-color: var(--dusty-blue);
         }
 
+        /* Confirmation Receipt Styles */
+        .receipt-warning-banner {
+            background-color: #fff8e6;
+            border: 1.5px solid #f59e0b;
+            color: #92400e;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12);
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #d0e1fd;
+            border-radius: 16px;
+            padding: 26px 20px;
+            box-shadow: 0 4px 20px rgba(29, 53, 87, 0.08);
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .summary-card-header {
+            border-bottom: 1.5px solid #e2e8f0;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .summary-card-sub {
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--dusty-blue);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .summary-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            color: var(--navy);
+            font-weight: 600;
+            margin: 0 0 2px 0;
+        }
+
+        .summary-card-date {
+            font-size: 0.85rem;
+            color: var(--grey);
+            font-style: italic;
+        }
+
+        .summary-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .summary-card-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-card-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .summary-card-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: var(--navy);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .badge-attending-yes {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .badge-attending-no {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .receipt-download-btn {
+            width: 100%;
+            background-color: var(--navy);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(29, 53, 87, 0.22);
+            transition: all 0.2s ease;
+        }
+
+        .receipt-download-btn:hover {
+            background-color: #14243b;
+            transform: translateY(-1px);
+        }
+
+        .receipt-download-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+
         /* =========================================
            QR CODE GIFT GUIDE STYLES
            ========================================= */
@@ -1915,17 +2058,14 @@
         <div class="rsvp-section" id="rsvp">
             <h2 class="rsvp-title">RSVP</h2>
             <hr class="rsvp-line">
-            <h3 class="rsvp-subtitle">Your presence will make our day even more special.</h3>
             
-            <p class="rsvp-italic">Please let us know if you can make it.</p>
-            
-            <!-- Vercel API RSVP Form -->
-            <form action="/api/rsvp" method="POST" class="rsvp-form" id="rsvp-form" novalidate>
-                
-                            
+            <!-- Client-Side Input Form -->
+            <form class="rsvp-form" id="rsvp-form" novalidate>
+                <h3 class="rsvp-subtitle">Your presence will make our day even more special.</h3>
+                <p class="rsvp-italic">Please let us know if you can make it.</p>
+
                 <div class="input-group">
                     <label class="input-label" for="guest-name">
-                        <!-- Simple user SVG icon -->
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         Full Name
                     </label>
@@ -1934,7 +2074,6 @@
 
                 <div class="input-group">
                     <label class="input-label" for="plus-one">
-                        <!-- Simple people/plus-one SVG icon -->
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                         Plus One / Additional Guest (+)
                     </label>
@@ -1957,24 +2096,56 @@
                     </div>
                 </div>
 
-                <p id="rsvp-error-message" role="alert" hidden style="color: #a32121; text-align: center;"></p> 
+                <p id="rsvp-error-message" role="alert" hidden style="color: #a32121; text-align: center; margin-top: 10px; font-weight: 500;"></p> 
                 <button type="submit" class="submit-btn">Send RSVP</button>
             </form>
 
-            <!-- RSVP SUBMISSION INSTANT USER FEEDBACK CONFIRMATION BOX -->
-            <div id="rsvp-success-message" style="display: none; text-align: center; padding: 28px 18px; background: #f4f8fb; border-radius: 12px; border: 1px solid #d0e1fd; margin-top: 15px; box-shadow: 0 4px 18px rgba(29, 53, 87, 0.06);">
-                <div style="width: 58px; height: 58px; background-color: #e8f5e9; color: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; box-shadow: 0 3px 10px rgba(46, 125, 50, 0.15);">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12"></polyline>
+            <!-- CONFIRMATION RECEIPT UI (Displayed upon client-side submit) -->
+            <div id="rsvp-confirmation-receipt" style="display: none; margin-top: 10px;">
+                
+                <!-- Notification Banner -->
+                <div class="receipt-warning-banner">
+                    ⚠️ IMPORTANT: Please download or screenshot this confirmation and send it directly to the host to secure your RSVP.
+                </div>
+
+                <!-- Data Summary Card -->
+                <div id="rsvp-summary-card" class="summary-card">
+                    <div class="summary-card-header">
+                        <span class="summary-card-sub">Official RSVP Receipt</span>
+                        <h3 class="summary-card-title">Romnick & Sheila's Wedding</h3>
+                        <p class="summary-card-date">December 27, 2026 • 2:00 PM</p>
+                    </div>
+
+                    <div class="summary-card-row">
+                        <span class="summary-card-label">Guest Name:</span>
+                        <span id="summary-guest-name" class="summary-card-value"></span>
+                    </div>
+
+                    <div class="summary-card-row">
+                        <span class="summary-card-label">Plus One / Guest:</span>
+                        <span id="summary-plus-one" class="summary-card-value" style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem;"></span>
+                    </div>
+
+                    <div class="summary-card-row">
+                        <span class="summary-card-label">Attendance Status:</span>
+                        <span id="summary-status-container"></span>
+                    </div>
+
+                    <div class="summary-card-row" style="padding-bottom: 0;">
+                        <span class="summary-card-label" style="font-size: 0.75rem;">Submitted On:</span>
+                        <span id="summary-timestamp" style="font-size: 0.75rem; color: var(--grey); font-family: monospace;"></span>
+                    </div>
+                </div>
+
+                <!-- Download Confirmation Button -->
+                <button id="download-receipt-btn" type="button" class="receipt-download-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
                     </svg>
-                </div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 8px;">RSVP Received!</h3>
-                <p id="rsvp-guest-confirm-text" style="font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #4b5563; line-height: 1.5; margin-bottom: 20px;">
-                    Thank you so much! Your RSVP response has been recorded.
-                </p>
-                <div style="display: inline-block; padding: 8px 18px; background-color: rgba(98, 131, 155, 0.12); border-radius: 20px; color: var(--dusty-blue); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
-                    ✓ RSVP response received
-                </div>
+                    <span>Download Confirmation</span>
+                </button>
             </div>
         </div>
         <!-- END OF RSVP FORM -->
@@ -2153,26 +2324,23 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Vercel Serverless RSVP API Form Submission + Instant In-Page Feedback Handler
+    // Client-Side RSVP Form Submission & Instant Confirmation Receipt Handler
     document.addEventListener('DOMContentLoaded', () => {
-        const rsvpForm = document.querySelector('.rsvp-form');
-        const successBox = document.getElementById('rsvp-success-message');
-        const confirmText = document.getElementById('rsvp-guest-confirm-text');
+        const rsvpForm = document.getElementById('rsvp-form');
+        const receiptContainer = document.getElementById('rsvp-confirmation-receipt');
         const errorBox = document.getElementById('rsvp-error-message');
+        const downloadBtn = document.getElementById('download-receipt-btn');
 
         if (rsvpForm) {
-            rsvpForm.addEventListener('submit', async (event) => {
+            rsvpForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-
-                const submitButton = rsvpForm.querySelector('button[type="submit"]');
-                if (submitButton && submitButton.disabled) return;
 
                 const formData = new FormData(rsvpForm);
                 const guestName = (formData.get('Name') || '').toString().trim();
                 const plusOne = (formData.get('Plus One') || '').toString().trim();
                 const attending = (formData.get('Attending') || '').toString().trim();
 
-                // 1. Frontend Validation
+                // 1. Validation
                 if (!guestName) {
                     if (errorBox) {
                         errorBox.textContent = 'Please enter your full name.';
@@ -2195,64 +2363,74 @@
 
                 if (errorBox) errorBox.hidden = true;
 
-                // 2. Spam / Duplicate Prevention: Disable submit button & show loading state
-                const originalButtonText = submitButton ? submitButton.textContent : 'Send RSVP';
-                if (submitButton) {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Sending RSVP…';
+                // 2. Populate Summary Card Data
+                const summaryNameEl = document.getElementById('summary-guest-name');
+                const summaryPlusOneEl = document.getElementById('summary-plus-one');
+                const summaryStatusContainer = document.getElementById('summary-status-container');
+                const summaryTimestampEl = document.getElementById('summary-timestamp');
+
+                if (summaryNameEl) summaryNameEl.textContent = guestName;
+                if (summaryPlusOneEl) summaryPlusOneEl.textContent = plusOne || 'None specified';
+
+                const isYes = attending.toLowerCase().includes('yes') || attending.toLowerCase().includes('joyfully');
+                if (summaryStatusContainer) {
+                    summaryStatusContainer.innerHTML = isYes
+                        ? `<span class="badge-attending-yes">✓ ${attending}</span>`
+                        : `<span class="badge-attending-no">✗ ${attending}</span>`;
                 }
-                rsvpForm.setAttribute('aria-busy', 'true');
+
+                if (summaryTimestampEl) {
+                    summaryTimestampEl.textContent = new Date().toLocaleString('en-US', {
+                        timeZone: 'Asia/Manila',
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    }) + ' (PST)';
+                }
+
+                // 3. Hide Input Form & Show Confirmation Receipt UI
+                rsvpForm.style.display = 'none';
+                if (receiptContainer) {
+                    receiptContainer.style.display = 'block';
+                    receiptContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }
+
+        // 4. html2canvas Download Confirmation Button Handler
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', async () => {
+                const summaryCard = document.getElementById('rsvp-summary-card');
+                if (!summaryCard) return;
+
+                const originalHTML = downloadBtn.innerHTML;
+                downloadBtn.disabled = true;
+                downloadBtn.innerHTML = '<span>Generating Image...</span>';
 
                 try {
-                    // Send request to Vercel API Route
-                    const response = await fetch('/api/rsvp', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: guestName,
-                            plusOne: plusOne,
-                            attending: attending
-                        })
+                    const canvas = await html2canvas(summaryCard, {
+                        scale: 2,
+                        backgroundColor: '#ffffff',
+                        useCORS: true,
+                        logging: false
                     });
 
-                    const result = await response.json().catch(() => ({}));
+                    const image = canvas.toDataURL('image/png');
+                    const guestName = (document.getElementById('summary-guest-name')?.textContent || 'Guest')
+                        .trim()
+                        .replace(/[^a-zA-Z0-9]/g, '_');
 
-                    // 3. Submission Handling: Success (200 OK only) vs Error
-                    if (response.ok && result.success !== false) {
-                        if (confirmText) {
-                            const isAttending = attending.toLowerCase().includes('yes') || attending.toLowerCase().includes('attending') || attending.toLowerCase().includes('joyfully');
-                            const responseMessage = isAttending
-                                ? "We can't wait to celebrate with you!"
-                                : "Thank you for letting us know. We'll miss you!";
-                            confirmText.textContent = `Thank you, ${guestName}! Your RSVP response ("${attending}") has been received. ${responseMessage}`;
-                        }
-
-                        rsvpForm.style.display = 'none';
-                        if (successBox) {
-                            successBox.style.display = 'block';
-                            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    } else {
-                        const errorMessage = result.error || 'Your RSVP could not be submitted. Please check your connection and try again.';
-                        throw new Error(errorMessage);
-                    }
+                    const link = document.createElement('a');
+                    link.download = `RSVP_Confirmation_${guestName}.png`;
+                    link.href = image;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 } catch (err) {
-                    // Error: Display clear message & keep guest's answers intact in form for easy retry
-                    if (errorBox) {
-                        errorBox.textContent = err.message || 'Your RSVP could not be confirmed. Please check your connection and try again.';
-                        errorBox.hidden = false;
-                        errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
+                    console.error('[RSVP Download Error]:', err);
+                    alert('Could not generate automatic download. Please take a screenshot of the confirmation receipt card!');
                 } finally {
-                    // Re-enable submit button in finally block so guest can retry if an error occurred
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = originalButtonText;
-                    }
-                    rsvpForm.removeAttribute('aria-busy');
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = originalHTML;
                 }
             });
         }
