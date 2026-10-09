@@ -8,7 +8,7 @@ const RECIPIENTS = [
 ];
 
 export default async function handler(req, res) {
-  // CORS configuration
+  // CORS Headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
     const isAttending = normAttending.includes('yes') || normAttending.includes('attending') || normAttending.includes('joyfully');
     const statusLabel = isAttending ? 'Attending (Yes, joyfully!)' : 'Declining (No, regrettably.)';
 
-    const emailSubject = `💍 Wedding RSVP: ${name} (${isAttending ? 'Attending' : 'Declining'})`;
+    const emailSubject = `💍 Wedding RSVP: ${name} - ${isAttending ? 'Attending' : 'Declining'}`;
 
     const htmlBody = `
 <!DOCTYPE html>
@@ -97,8 +97,9 @@ export default async function handler(req, res) {
     .card { max-width: 580px; margin: 0 auto; background: #ffffff; padding: 32px; border-radius: 12px; border: 1px solid #d0e1fd; box-shadow: 0 4px 20px rgba(25, 40, 56, 0.08); }
     .header { font-family: Georgia, serif; color: #192838; font-size: 24px; border-bottom: 2px solid #75a8cd; padding-bottom: 12px; margin-top: 0; }
     .table { width: 100%; border-collapse: collapse; margin: 24px 0; }
-    .table td { padding: 12px 14px; border-bottom: 1px solid #e6ecef; font-size: 15px; }
+    .table td { padding: 14px; border-bottom: 1px solid #e6ecef; font-size: 15px; }
     .label { font-weight: 600; color: #4e8cb9; width: 35%; }
+    .val { font-weight: 600; color: #192838; }
     .status-tag { display: inline-block; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 14px; }
     .status-yes { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
     .status-no { background-color: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
@@ -107,16 +108,16 @@ export default async function handler(req, res) {
 </head>
 <body>
   <div class="card">
-    <h2 class="header">💌 New Wedding RSVP Response</h2>
+    <h2 class="header">💌 New Wedding RSVP Submission</h2>
     <p style="font-size: 15px; color: #4b5563;">You have received a new response for <strong>Wilfredo & Sheila's Wedding</strong>:</p>
     
     <table class="table">
       <tr>
         <td class="label">Guest Name</td>
-        <td style="font-weight: 600; color: #192838;">${escapeHtml(name)}</td>
+        <td class="val">${escapeHtml(name)}</td>
       </tr>
       <tr>
-        <td class="label">Attendance Status</td>
+        <td class="label">Attendance Response</td>
         <td>
           <span class="status-tag ${isAttending ? 'status-yes' : 'status-no'}">
             ${isAttending ? '✓ Attending (Yes, joyfully!)' : '✗ Declining (No, regrettably.)'}
@@ -125,7 +126,7 @@ export default async function handler(req, res) {
       </tr>
       <tr>
         <td class="label">Plus One / Guest</td>
-        <td style="color: #334155;">${plusOne ? escapeHtml(plusOne) : '<em>None specified</em>'}</td>
+        <td style="color: #334155; font-weight: 500;">${plusOne ? escapeHtml(plusOne) : '<em>None specified</em>'}</td>
       </tr>
       <tr>
         <td class="label">Received At</td>
@@ -134,7 +135,7 @@ export default async function handler(req, res) {
     </table>
 
     <div class="footer">
-      <strong>Server-Side Notification List:</strong><br>
+      <strong>Notification Recipients:</strong><br>
       • portantewilfredo@gmail.com<br>
       • shengseat27@gmail.com<br>
       • romnicksiano2@gmail.com
@@ -144,7 +145,7 @@ export default async function handler(req, res) {
 </html>
     `;
 
-    const textBody = `New Wedding RSVP:\nGuest Name: ${name}\nStatus: ${statusLabel}\nPlus One: ${plusOne || 'None'}`;
+    const textBody = `NEW WEDDING RSVP RESPONSE\n\nGuest Name: ${name}\nAttendance: ${statusLabel}\nPlus One: ${plusOne || 'None specified'}\nSubmitted At: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' })} (PST)\n\nRecipients:\n- ${RECIPIENTS.join('\n- ')}`;
 
     let emailSent = false;
     let providerName = null;
@@ -155,6 +156,8 @@ export default async function handler(req, res) {
     if (resendApiKey) {
       try {
         const fromEmail = process.env.RESEND_FROM_EMAIL || 'Wedding RSVP <onboarding@resend.dev>';
+        
+        // Send to recipients
         const resendResponse = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -174,18 +177,44 @@ export default async function handler(req, res) {
         if (resendResponse.ok) {
           emailSent = true;
           providerName = 'Resend API';
-          console.log('[RSVP Success] Email sent via Resend:', resendResult);
+          console.log('[RSVP Success] Resend email dispatched:', resendResult);
         } else {
+          // If bulk sending failed (e.g. Resend free tier unverified domain restriction), try sending to each recipient individually
+          console.warn('[RSVP Warning] Bulk Resend send failed, attempting individual sends:', resendResult);
           emailErrorMsg = resendResult.message || JSON.stringify(resendResult);
-          console.error('[RSVP Error] Resend API failed:', resendResult);
+
+          for (const recipient of RECIPIENTS) {
+            try {
+              const indivRes = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${resendApiKey}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  from: fromEmail,
+                  to: recipient,
+                  subject: emailSubject,
+                  html: htmlBody,
+                  text: textBody
+                })
+              });
+              if (indivRes.ok) {
+                emailSent = true;
+                providerName = 'Resend API (Individual)';
+              }
+            } catch (indivErr) {
+              console.error(`[Resend Error for ${recipient}]:`, indivErr);
+            }
+          }
         }
       } catch (err) {
         emailErrorMsg = err.message;
-        console.error('[RSVP Error] Resend API exception:', err);
+        console.error('[RSVP Error] Resend fetch exception:', err);
       }
     }
 
-    // --- 2. NODEMAILER / SMTP DELIVERY (Alternative) ---
+    // --- 2. NODEMAILER / GMAIL SMTP DELIVERY ---
     if (!emailSent && (process.env.SMTP_HOST || process.env.SMTP_USER)) {
       try {
         const nodemailer = await import('nodemailer');
@@ -201,7 +230,7 @@ export default async function handler(req, res) {
 
         await transporter.sendMail({
           from: process.env.SMTP_FROM || `Wedding RSVP <${process.env.SMTP_USER}>`,
-          to: RECIPIENTS,
+          to: RECIPIENTS.join(', '),
           subject: emailSubject,
           html: htmlBody,
           text: textBody
@@ -209,14 +238,14 @@ export default async function handler(req, res) {
 
         emailSent = true;
         providerName = 'Nodemailer SMTP';
-        console.log('[RSVP Success] Email sent via Nodemailer SMTP');
+        console.log('[RSVP Success] Nodemailer SMTP email sent to all recipients');
       } catch (err) {
         emailErrorMsg = emailErrorMsg || err.message;
         console.error('[RSVP Error] Nodemailer SMTP exception:', err);
       }
     }
 
-    // --- 3. FORMSPREE DELIVERY (Alternative) ---
+    // --- 3. FORMSPREE ENDPOINT DELIVERY ---
     if (!emailSent && process.env.FORMSPREE_ENDPOINT) {
       try {
         const formspreeResponse = await fetch(process.env.FORMSPREE_ENDPOINT, {
@@ -226,18 +255,18 @@ export default async function handler(req, res) {
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            name,
-            plusOne: plusOne || 'None',
-            attending: statusLabel,
+            guestName: name,
+            attendingStatus: statusLabel,
+            plusOne: plusOne || 'None specified',
             _subject: emailSubject,
-            recipients: RECIPIENTS.join(', ')
+            notificationRecipients: RECIPIENTS.join(', ')
           })
         });
 
         if (formspreeResponse.ok) {
           emailSent = true;
           providerName = 'Formspree Endpoint';
-          console.log('[RSVP Success] Formspree notification sent');
+          console.log('[RSVP Success] Formspree notification dispatched');
         } else {
           const fsData = await formspreeResponse.json().catch(() => ({}));
           emailErrorMsg = emailErrorMsg || fsData.error || 'Formspree request failed';
@@ -247,39 +276,36 @@ export default async function handler(req, res) {
       }
     }
 
-    // --- 4. DEV / LOCAL LOGGING FALLBACK ---
+    // --- 4. ERROR HANDLING IF NO EMAIL PROVIDER WORKED ---
     if (!emailSent) {
-      console.log('--------------------------------------------------');
-      console.log('⚡ [RSVP SERVER LOG - NO EMAIL API KEY SET YET]');
-      console.log(`Guest Name: ${name}`);
-      console.log(`Attending Status: ${statusLabel}`);
-      console.log(`Plus One: ${plusOne || 'None'}`);
-      console.log(`Server Recipients: ${RECIPIENTS.join(', ')}`);
-      console.log('--------------------------------------------------');
-
-      // If keys were provided but delivery failed, return 500
-      if (resendApiKey || process.env.SMTP_USER || process.env.FORMSPREE_ENDPOINT) {
-        return res.status(500).json({
-          success: false,
-          error: `Email notification delivery failed (${emailErrorMsg || 'Unknown error'}). Please try again.`
-        });
-      }
-    }
-
-    // Return 200 OK Successful response
-    return res.status(200).json({
-      success: true,
-      message: 'RSVP confirmed successfully!',
-      details: {
+      console.error('❌ [RSVP ERROR] No email service succeeded in dispatching email notification.', {
         guestName: name,
         attending: statusLabel,
         plusOne: plusOne || 'None',
-        deliveryMethod: providerName || 'Logged to server console (Configure RESEND_API_KEY for live emails)'
+        recipients: RECIPIENTS,
+        lastError: emailErrorMsg
+      });
+
+      return res.status(500).json({
+        success: false,
+        error: `Email notification delivery failed: Please configure your email service API key (RESEND_API_KEY, FORMSPREE_ENDPOINT, or Gmail SMTP) in Vercel Environment Variables.`
+      });
+    }
+
+    // --- 5. SUCCESS RESPONSE (ONLY RETURNED WHEN EMAIL DISPATCH SUCCEEDED) ---
+    return res.status(200).json({
+      success: true,
+      message: 'RSVP confirmed and email notification sent!',
+      details: {
+        guestName: name,
+        attending: statusLabel,
+        plusOne: plusOne || 'None specified',
+        deliveryMethod: providerName
       }
     });
 
   } catch (err) {
-    console.error('[RSVP Handler Fatal Error]:', err);
+    console.error('[RSVP Fatal Error]:', err);
     return res.status(500).json({
       success: false,
       error: 'An internal server error occurred while processing your RSVP submission.'
