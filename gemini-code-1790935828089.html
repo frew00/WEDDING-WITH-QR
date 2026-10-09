@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Romnick and Sheila</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Color Palette & Variables */
+        :root {
+            --navy: #1D3557;
+            --dusty-blue: #62839b;
+            --light-blue: #9eb5c7;
+            --off-white: #f7f9fa;
+            --grey: #5c646b;
+        }
+
+        /* Global Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #e0e6ed;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        /* Dynamic Animated Gradient Background */
+        .invite-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(-45deg, #f8fafc, #ebf3f9, #e2ebf4, #d7e4f0, #edf4fa);
+            background-size: 400% 400%;
+            animation: gradientShift 16s ease infinite;
+            box-shadow: 0 15px 40px rgba(29, 53, 87, 0.14);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-blue {
+            background: linear-gradient(-45deg, #4b677d, #62839b, #55758d, #3c576e);
+            background-size: 300% 300%;
+            animation: gradientShift 14s ease infinite;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Pencil-Drawn White Flowers & Feathers */
+        .pencil-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 2px 5px rgba(29, 53, 87, 0.15));
+        }
+
+        .pencil-flower-1 {
+            top: 220px;
+            right: 15px;
+            width: 80px;
+            opacity: 0.8;
+            animation: floatPencil2 10s ease-in-out infinite alternate;
+        }
+
+        .pencil-flower-2 {
+            top: 1400px;
+            left: 10px;
+            width: 85px;
+            opacity: 0.8;
+            animation: floatPencil2 11s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatPencil2 {
+            0% {
+                transform: translateY(0px) rotate(0deg) scale(0.96);
+            }
+            50% {
+                transform: translateY(-20px) rotate(-6deg) scale(1.05);
+            }
+            100% {
+                transform: translateY(-8px) rotate(4deg) scale(1);
+            }
+        }
+
+        /* Background Falling Feathers Overlay (Z-Index 1: Behind Photos & Names) */
+        .feather-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1; /* Strictly behind photos and name cards */
+        }
+
+        .falling-feather {
+            position: absolute;
+            top: -120px;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.4));
+            will-change: transform, top, opacity;
+        }
+
+        /* Ultra Light, Slow Floating & Gentle Swaying Feather Keyframes */
+        @keyframes featherFallSmooth1 {
+            0% {
+                top: -120px;
+                transform: translateX(0px) rotate(0deg) scale(0.85);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.85;
+            }
+            25% {
+                transform: translateX(50px) rotate(32deg) scale(1.02);
+            }
+            45% {
+                transform: translateX(-40px) rotate(-28deg) scale(0.92);
+            }
+            70% {
+                transform: translateX(45px) rotate(35deg) scale(1.04);
+                opacity: 0.85;
+            }
+            88% {
+                transform: translateX(-20px) rotate(-15deg) scale(0.9);
+            }
+            100% {
+                top: 108%;
+                transform: translateX(25px) rotate(60deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes featherFallSmooth2 {
+            0% {
+                top: -120px;
+                transform: translateX(0px) rotate(0deg) scale(0.95);
+                opacity: 0;
+            }
+            12% {
+                opacity: 0.9;
+            }
+            30% {
+                transform: translateX(-55px) rotate(-40deg) scale(1.08);
+            }
+            58% {
+                transform: translateX(45px) rotate(30deg) scale(0.88);
+            }
+            82% {
+                transform: translateX(-35px) rotate(-25deg) scale(1.02);
+                opacity: 0.85;
+            }
+            100% {
+                top: 108%;
+                transform: translateX(18px) rotate(-75deg) scale(0.82);
+                opacity: 0;
+            }
+        }
+
+        @keyframes featherFallSmooth3 {
+            0% {
+                top: -120px;
+                transform: translateX(0px) rotate(-15deg) scale(0.75);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.88;
+            }
+            35% {
+                transform: translateX(42px) rotate(28deg) scale(0.98);
+            }
+            62% {
+                transform: translateX(-38px) rotate(-22deg) scale(1.05);
+            }
+            85% {
+                transform: translateX(30px) rotate(20deg) scale(0.88);
+                opacity: 0.85;
+            }
+            100% {
+                top: 108%;
+                transform: translateX(-25px) rotate(45deg) scale(0.75);
+                opacity: 0;
+            }
+        }
+
+        /* Staggered Positions & Ultra-Slow Feather Durations (Light as air falling motion) */
+        .f1  { left: 2%;   width: 46px; animation: featherFallSmooth1 32.0s ease-in-out infinite -5.0s; }
+        .f2  { left: 14%;  width: 58px; animation: featherFallSmooth2 38.0s ease-in-out infinite -18.0s; }
+        .f3  { left: 26%;  width: 40px; animation: featherFallSmooth3 29.0s ease-in-out infinite -10.0s; }
+        .f4  { left: 38%;  width: 62px; animation: featherFallSmooth1 44.0s ease-in-out infinite -26.0s; }
+        .f5  { left: 50%;  width: 48px; animation: featherFallSmooth2 33.0s ease-in-out infinite -14.0s; }
+        .f6  { left: 62%;  width: 54px; animation: featherFallSmooth3 36.0s ease-in-out infinite -22.0s; }
+        .f7  { left: 74%;  width: 42px; animation: featherFallSmooth1 30.0s ease-in-out infinite -8.0s; }
+        .f8  { left: 86%;  width: 66px; animation: featherFallSmooth2 46.0s ease-in-out infinite -32.0s; }
+        .f9  { left: 7%;   width: 48px; animation: featherFallSmooth3 31.0s ease-in-out infinite -15.0s; }
+        .f10 { left: 19%;  width: 52px; animation: featherFallSmooth1 39.0s ease-in-out infinite -27.0s; }
+        .f11 { left: 31%;  width: 44px; animation: featherFallSmooth2 28.0s ease-in-out infinite -9.0s; }
+        .f12 { left: 43%;  width: 60px; animation: featherFallSmooth3 42.0s ease-in-out infinite -30.0s; }
+        .f13 { left: 55%;  width: 38px; animation: featherFallSmooth1 27.0s ease-in-out infinite -6.0s; }
+        .f14 { left: 67%;  width: 56px; animation: featherFallSmooth2 37.0s ease-in-out infinite -20.0s; }
+        .f15 { left: 79%;  width: 46px; animation: featherFallSmooth3 34.0s ease-in-out infinite -16.0s; }
+        .f16 { left: 91%;  width: 50px; animation: featherFallSmooth1 38.0s ease-in-out infinite -24.0s; }
+        .f17 { left: 4%;   width: 54px; animation: featherFallSmooth2 35.0s ease-in-out infinite -12.0s; }
+        .f18 { left: 16%;  width: 42px; animation: featherFallSmooth3 28.0s ease-in-out infinite -19.0s; }
+        .f19 { left: 28%;  width: 64px; animation: featherFallSmooth1 48.0s ease-in-out infinite -36.0s; }
+        .f20 { left: 40%;  width: 46px; animation: featherFallSmooth2 32.0s ease-in-out infinite -15.0s; }
+        .f21 { left: 52%;  width: 52px; animation: featherFallSmooth3 35.0s ease-in-out infinite -25.0s; }
+        .f22 { left: 64%;  width: 40px; animation: featherFallSmooth1 29.0s ease-in-out infinite -7.0s; }
+        .f23 { left: 76%;  width: 60px; animation: featherFallSmooth2 43.0s ease-in-out infinite -34.0s; }
+        .f24 { left: 88%;  width: 44px; animation: featherFallSmooth3 28.0s ease-in-out infinite -11.0s; }
+        .f25 { left: 10%;  width: 48px; animation: featherFallSmooth1 30.0s ease-in-out infinite -17.0s; }
+        .f26 { left: 46%;  width: 55px; animation: featherFallSmooth2 40.0s ease-in-out infinite -4.0s; }
+        .f27 { left: 71%;  width: 40px; animation: featherFallSmooth3 26.0s ease-in-out infinite -16.0s; }
+        .f28 { left: 83%;  width: 58px; animation: featherFallSmooth1 41.0s ease-in-out infinite -29.0s; }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .script-text {
+            font-family: 'Great Vibes', cursive;
+            color: var(--dusty-blue);
+            font-size: 3rem;
+            font-weight: normal;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        p {
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            padding: 50px 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bg-blue {
+            background-color: var(--dusty-blue);
+            color: white;
+        }
+        
+        .bg-blue p, .bg-blue h1, .bg-blue h2, .bg-blue h3 {
+            color: white;
+        }
+
+        .bg-blue .script-text {
+            color: var(--navy);
+        }
+
+        /* ----- IMAGE FILTERS & FRAMES ----- */
+        /* This wrapper applies the dusty blue color grade to all photos */
+        .image-filter-wrapper {
+            position: relative;
+            z-index: 10; /* Ensures photos are ALWAYS strictly in front of falling background feathers */
+            overflow: hidden;
+            margin: 20px auto;
+            box-shadow: 0 8px 20px rgba(29, 53, 87, 0.15);
+            background-color: #e0e6ed;
+        }
+
+        .image-filter-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            /* Slightly desaturate to allow the blue tint to take over */
+            filter: grayscale(15%) contrast(105%);
+        }
+
+        /* The blue overlay magic */
+        .image-filter-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--dusty-blue);
+            mix-blend-mode: soft-light;
+            opacity: 0.45; /* Adjust this from 0.1 to 0.8 to make the blue filter stronger or weaker */
+            pointer-events: none;
+        }
+
+        /* Specific Image Shapes */
+        .shape-arch {
+            width: 85%;
+            height: 450px;
+            border-radius: 200px 200px 10px 10px;
+        }
+
+        .shape-landscape {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+        }
+
+        .shape-square {
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+        }
+        
+        .shape-portrait {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+        }
+
+        /* Photo Grid for Love Story */
+        .photo-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-grid-2 .image-filter-wrapper {
+            height: 200px;
+            margin: 0;
+        }
+
+        /* Torn Paper Edge Separators */
+        .edge-top {
+            width: 100%;
+            height: 40px;
+            background-color: var(--off-white);
+            mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1000 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 L1000,40 L1000,0 C850,30 750,10 600,35 C450,15 350,40 200,20 C100,35 50,10 0,25 Z"/></svg>');
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1000 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 L1000,40 L1000,0 C850,30 750,10 600,35 C450,15 350,40 200,20 C100,35 50,10 0,25 Z"/></svg>');
+            mask-size: 100% 100%;
+            -webkit-mask-size: 100% 100%;
+            margin-top: -39px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Layouts & Aesthetic Gradient Entourage Cards */
+        .entourage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .entourage-group {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(232, 242, 250, 0.92) 50%, rgba(246, 250, 254, 0.95) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(98, 131, 155, 0.35);
+            border-radius: 16px;
+            padding: 16px 8px;
+            margin-bottom: 16px;
+            box-shadow: 0 10px 24px rgba(29, 53, 87, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .entourage-group:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(29, 53, 87, 0.13);
+        }
+
+        .entourage-group h4 {
+            color: #142847; /* Deep royal navy header */
+            text-transform: uppercase;
+            font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--dusty-blue);
+            padding-bottom: 6px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .entourage-group p {
+            color: #16263b; /* High-contrast ultra-readable dark navy */
+            font-weight: 500; /* Refined semi-bold */
+            margin-bottom: 6px;
+            font-size: clamp(0.68rem, 2.6vw, 0.83rem);
+            letter-spacing: 0.1px;
+            line-height: 1.4;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .entourage-group p strong {
+            color: #0f2038;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .entourage-section {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            .entourage-grid {
+                gap: 8px;
+            }
+            .entourage-group {
+                padding: 14px 4px;
+            }
+            .entourage-group p {
+                font-size: clamp(0.64rem, 2.6vw, 0.78rem);
+            }
+        }
+
+        /* ----- FLIP CARD COUNTDOWN STYLES ----- */
+        .flip-card {
+            position: relative;
+            width: 42px;
+            height: 58px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(29, 53, 87, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy);
+            border: 1px solid rgba(224, 230, 237, 0.8);
+            overflow: hidden;
+        }
+
+        .flip-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(29, 53, 87, 0.12);
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--dusty-blue);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 35px 0 10px 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Broken Trail (dashed line connector) */
+        .timeline-item::after {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 30px;
+            border-left: 2px dashed rgba(255, 255, 255, 0.6);
+            margin-top: 12px;
+            margin-bottom: -22px;
+        }
+        .timeline-item:last-child::after { display: none; }
+
+        /* Minimal Symbol Badge */
+        .timeline-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .timeline-item:hover .timeline-icon-box {
+            transform: scale(1.08);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-time {
+            font-weight: 600;
+            color: white;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .color-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .color-circle:hover {
+            transform: translateY(-4px) scale(1.12);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
+
+        /* Attire Guidelines Card Container */
+        .attire-container {
+            max-width: 480px;
+            margin: 20px auto 0 auto;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .attire-label {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Minimal Map Pin Button */
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--dusty-blue);
+            background-color: transparent;
+            text-decoration: none;
+            border: 1px solid var(--light-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .map-btn:hover {
+            background-color: var(--dusty-blue);
+            color: white;
+            border-color: var(--dusty-blue);
+        }
+
+        .map-btn-light {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* =========================================
+           ENVELOPE OVERLAY & ANIMATION STYLES
+           ========================================= */
+        #envelope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--off-white);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
+        }
+
+        #envelope-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            z-index: 10;
+        }
+
+        .intro-text span {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--dusty-blue);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            cursor: pointer;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #cbd5e1;
+            border-radius: 5px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transform-style: preserve-3d;
+        }
+
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-left: 160px solid var(--light-blue);
+            border-right: 160px solid var(--light-blue);
+            border-bottom: 100px solid var(--dusty-blue);
+            border-top: 100px solid transparent;
+            z-index: 4;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #a8bccc;
+            z-index: 5;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: var(--navy);
+            border-radius: 50%;
+            z-index: 6;
+            color: white;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: opacity 0.3s ease;
+        }
+
+        .tap-text {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--grey);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .polaroids-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+        }
+
+        .polaroid {
+            position: absolute;
+            bottom: 10px;
+            width: 95px;
+            height: 115px;
+            background: white;
+            padding: 5px 5px 22px 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .pol-1 { transform: scale(0.9) rotate(-5deg); left: 30px; }
+        .pol-2 { transform: scale(1) rotate(0deg); z-index: 2; }
+        .pol-3 { transform: scale(0.9) rotate(5deg); right: 30px; }
+
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1 !important; 
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .tap-text {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .polaroids-container {
+            z-index: 20 !important;
+        }
+
+        .envelope-wrapper.open .pol-1 { 
+            transform: translateY(-165px) rotate(-16deg) scale(1.15); 
+            z-index: 21 !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+        .envelope-wrapper.open .pol-2 { 
+            transform: translateY(-195px) rotate(0deg) scale(1.25); 
+            z-index: 22 !important;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.3);
+        }
+        .envelope-wrapper.open .pol-3 { 
+            transform: translateY(-165px) rotate(16deg) scale(1.15); 
+            z-index: 21 !important;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+
+        /* =========================================
+           RESPONSIVE MOBILE VIEW (SMARTPHONES & TABLETS)
+           ========================================= */
+        @media (max-width: 600px) {
+            .invite-container {
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .section {
+                padding: 40px 18px;
+            }
+
+            .entourage-section {
+                margin: 15px 8px !important;
+                padding: 45px 12px 35px 12px !important;
+            }
+
+            .script-text {
+                font-size: 2.5rem;
+            }
+
+            .entourage-section h1.script-text {
+                font-size: 3.2rem !important;
+            }
+
+            /* Proportioned Image Shapes for Mobile */
+            .shape-arch {
+                width: 90%;
+                height: 350px;
+                border-radius: 160px 160px 10px 10px;
+            }
+
+            .shape-portrait {
+                height: 290px;
+            }
+
+            .shape-landscape {
+                height: 200px;
+            }
+
+            .shape-square {
+                width: 150px;
+                height: 150px;
+            }
+
+            .photo-grid-2 {
+                gap: 10px;
+            }
+
+            .photo-grid-2 .image-filter-wrapper {
+                height: 155px;
+            }
+
+            /* Proportioned Entourage Grid & Cards */
+            .entourage-grid {
+                gap: 10px;
+                margin-top: 12px;
+            }
+
+            .entourage-group {
+                padding: 14px 10px;
+                border-radius: 14px;
+                margin-bottom: 12px;
+            }
+
+            .entourage-group h4 {
+                font-size: 0.78rem;
+                letter-spacing: 0.8px;
+                padding-bottom: 5px;
+                margin-bottom: 8px;
+            }
+
+            .entourage-group p {
+                font-size: 0.82rem;
+                margin-bottom: 4px;
+            }
+
+            /* Attire & Color Palette */
+            .attire-container {
+                padding: 16px 10px;
+                margin-top: 15px;
+            }
+
+            .color-palette {
+                gap: 8px;
+            }
+
+            .color-circle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .dress-code-card {
+                max-width: 96% !important;
+                padding: 14px 8px !important;
+                margin: 25px auto 18px auto !important;
+            }
+
+            /* Pencil Flower Accents */
+            .pencil-flower-1 {
+                width: 60px;
+                right: 8px;
+            }
+
+            .pencil-flower-2 {
+                width: 65px;
+                left: 6px;
+            }
+
+            /* Single Row Hero Name Title */
+            .section h1.script-text {
+                font-size: clamp(2.2rem, 7.5vw, 3rem) !important;
+                white-space: nowrap !important;
+                letter-spacing: 0px !important;
+            }
+
+            /* Wider RSVP Card Matching Attire Guidelines */
+            .rsvp-section {
+                max-width: 96% !important;
+                margin: 25px auto 18px auto !important;
+                padding: 35px 16px !important;
+                border-radius: 16px !important;
+            }
+
+            /* Compact Single-Row Live Countdown Timer for Mobile */
+            .countdown-container {
+                padding: 22px 6px !important;
+                margin: 25px auto 10px auto !important;
+                max-width: 96% !important;
+            }
+
+            .countdown-container > div {
+                gap: 4px !important;
+                max-width: 100% !important;
+            }
+
+            .countdown-box {
+                padding: 0 !important;
+            }
+
+            .countdown-box .card-pair {
+                gap: 2px !important;
+            }
+
+            .flip-card {
+                width: 32px !important;
+                height: 48px !important;
+                font-size: 1.25rem !important;
+                border-radius: 6px !important;
+            }
+
+            .countdown-label {
+                font-size: 0.58rem !important;
+                letter-spacing: 0.5px !important;
+                margin-top: 6px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Interactive Envelope Overlay Mobile Adjustments */
+            .envelope-wrapper {
+                width: 280px;
+                height: 175px;
+            }
+
+            .envelope-front {
+                border-left: 140px solid var(--light-blue);
+                border-right: 140px solid var(--light-blue);
+                border-bottom: 88px solid var(--dusty-blue);
+                border-top: 88px solid transparent;
+            }
+
+            .envelope-flap {
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-top: 96px solid #a8bccc;
+            }
+
+            .wax-seal {
+                top: 78px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+            }
+
+            .polaroid {
+                width: 82px;
+                height: 102px;
+                padding: 4px 4px 18px 4px;
+            }
+
+            .pol-1 { left: 24px; }
+            .pol-3 { right: 24px; }
+
+            .envelope-wrapper.open .pol-1 { 
+                transform: translateY(-145px) rotate(-15deg) scale(1.1); 
+            }
+            .envelope-wrapper.open .pol-2 { 
+                transform: translateY(-170px) rotate(0deg) scale(1.2); 
+            }
+            .envelope-wrapper.open .pol-3 { 
+                transform: translateY(-145px) rotate(15deg) scale(1.1); 
+            }
+
+            .intro-text {
+                font-size: 1.25rem;
+                margin-bottom: 30px;
+            }
+
+            .intro-text span {
+                font-size: 2.5rem;
+            }
+
+            /* Additional Extra-Small Screen Refinement for Flip Cards */
+            .flip-card {
+                width: 28px !important;
+                height: 42px !important;
+                font-size: 1.15rem !important;
+            }
+
+            .countdown-label {
+                font-size: 0.52rem !important;
+                letter-spacing: 0.2px !important;
+            }
+        }
+
+        /* =========================================
+           RSVP FORM STYLES
+           ========================================= */
+        .rsvp-section {
+            background-color: white;
+            padding: 60px 30px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .rsvp-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dusty-blue);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .rsvp-line {
+            width: 60px;
+            height: 2px;
+            background-color: #d1d5db;
+            border: none;
+            margin: 0 auto 30px auto;
+        }
+
+        .rsvp-subtitle {
+            font-family: 'Playfair Display', serif;
+            color: #4b5563;
+            font-size: 1.5rem;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .rsvp-italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .rsvp-deadline {
+            font-size: 0.85rem;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .rsvp-deadline .blue-text {
+            color: var(--dusty-blue);
+            font-weight: 600;
+        }
+
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-label {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #6b7280;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rsvp-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--navy);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .rsvp-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .rsvp-input:focus {
+            border-color: var(--dusty-blue);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--navy);
+            transition: all 0.3s;
+        }
+
+        .radio-card input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .radio-card input:checked ~ .radio-custom {
+            border-color: var(--navy);
+        }
+
+        .radio-card input:checked ~ .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--navy);
+            border-radius: 50%;
+        }
+
+        .radio-card:hover {
+            border-color: #d1d5db;
+        }
+
+        .submit-btn {
+            background-color: #8393a3;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dusty-blue);
+        }
+
+        /* =========================================
+           QR CODE GIFT GUIDE STYLES
+           ========================================= */
+        .qr-card {
+            background-color: white;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 2px solid var(--light-blue);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adds a subtle dusty blue watercolor-like tint to the edges of the card */
+        .qr-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 40px rgba(98, 131, 155, 0.15);
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .qr-image-wrapper {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .qr-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(110%) brightness(105%); 
+        }
+
+        .qr-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .qr-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dusty-blue);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           MOBILE RESPONSIVENESS FIXES
+           ========================================= */
+        @media screen and (max-width: 600px) {
+            /* Change the 2-column grid into a 1-column stack on small screens */
+            .entourage-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+
+            /* Ensure the white cards span the full width of the mobile screen */
+            .entourage-group {
+                width: 100%;
+                box-sizing: border-box;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                margin-bottom: 15px;
+            }
+            
+            /* Slightly reduce the font size of the names on mobile to fit perfectly */
+            .entourage-group p {
+                font-size: 0.8rem;
+                white-space: normal;
+            }
+            
+            /* Make the title fonts a bit more mobile-friendly */
+            .script-text {
+                font-size: 2.5rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- =========================================
+     ENVELOPE OVERLAY (The Animation)
+     ========================================= -->
+<div id="envelope-overlay">
+    <h2 class="intro-text">You are cordially<br><span>Invited!</span></h2>
+    
+    <!-- Clickable Envelope -->
+    <div class="envelope-wrapper" id="envelope" onclick="openInvitation()">
+        <div class="envelope">
+            <div class="polaroids-container">
+                <!-- The 3 photos that pop out -->
+                <img src="NICK PREN 3-2673.jpg" class="polaroid pol-1" alt="Photo 1">
+                <img src="NICK PREN 3-2412.jpg" class="polaroid pol-2" alt="Photo 2">
+                <img src="NICK PREN 3-2824.jpg" class="polaroid pol-3" alt="Photo 3">
+            </div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">R&S</div>
+        </div>
+        <p class="tap-text">TAP TO OPEN</p>
+    </div>
+    
+    <h2 class="intro-text" style="margin-top: 50px; font-size: 1rem; font-family: 'Montserrat', sans-serif;">
+        THE WEDDING OF<br>
+        <span style="font-size: 2.5rem; color: var(--navy);">Romnick and Sheila</span><br>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--grey); letter-spacing: 1px;">DECEMBER 27, 2026 | 2:30 PM</span>
+    </h2>
+</div>
+
+<div class="invite-container">
+
+    <!-- Background Hand-Drawn White Falling Feathers Overlay (Z-Index 1: Behind Photos & Cards) -->
+    <div class="feather-overlay">
+        <!-- Feather Shape A: Long Curved Quill with Fine Vane Barbs -->
+        <svg class="falling-feather f1" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48 M47 65 C24 52 8 62 3 72 M46 85 C22 72 7 84 2 95 M46 105 C24 95 9 108 4 118 M46 125 C26 115 12 128 7 138 M47 145 C28 138 16 148 11 158 M48 165 C32 158 20 168 16 178 M49 185 C36 180 26 188 22 196" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48 M53 65 C76 52 92 62 97 72 M54 85 C78 72 93 84 98 95 M54 105 C76 95 91 108 96 118 M54 125 C74 115 88 128 93 138 M53 145 C72 138 84 148 89 158 M52 165 C68 158 80 168 84 178 M51 185 C64 180 74 188 78 196" stroke-width="1.2" opacity="0.88"/>
+            <path d="M48 35 C35 28 22 32 16 38 M47 75 C30 65 18 72 12 80 M46 115 C30 106 18 116 12 124 M52 35 C65 28 78 32 84 38 M53 75 C70 65 82 72 88 80 M54 115 C70 106 82 116 88 124" stroke-width="0.8" opacity="0.65"/>
+        </svg>
+        <!-- Feather Shape B: Soft Curved Floating Feather -->
+        <svg class="falling-feather f2" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78 M52 48 C45 70 60 88 74 96 M68 68 C60 90 76 110 88 118 M82 92 C78 112 90 130 98 138" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56 M52 48 C72 45 92 60 102 75 M68 68 C86 65 102 82 110 98 M82 92 C96 90 108 108 114 122" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <!-- Feather Shape C: Horizontal Wispy Feather -->
+        <svg class="falling-feather f3" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16 M75 49 C70 28 88 18 105 15 M100 51 C98 32 115 22 130 20" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86 M75 49 C80 70 98 80 112 84 M100 51 C105 68 122 75 135 78" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <!-- Feather Shape D: Delicate Small Down Feather -->
+        <svg class="falling-feather f4" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46 M37 58 C18 48 8 58 4 66 M37 78 C20 70 10 80 8 88 M38 98 C24 92 14 100 12 108" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46 M43 58 C62 48 72 58 76 66 M43 78 C60 70 70 80 72 88 M42 98 C56 92 66 100 68 108" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f5" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48 M47 65 C24 52 8 62 3 72" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48 M53 65 C76 52 92 62 97 72" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f6" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f7" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f8" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f9" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f10" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f11" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f12" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f13" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f14" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f15" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f16" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f17" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f18" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f19" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f20" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f21" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f22" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f23" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f24" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+        <svg class="falling-feather f25" viewBox="0 0 100 220" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 10 C42 80 44 140 50 210" stroke-width="1.8" opacity="0.95"/>
+            <path d="M49 25 C32 15 14 20 8 26 M48 45 C28 32 10 40 4 48" stroke-width="1.2" opacity="0.88"/>
+            <path d="M51 25 C68 15 86 20 92 26 M52 45 C72 32 90 40 96 48" stroke-width="1.2" opacity="0.88"/>
+        </svg>
+        <svg class="falling-feather f26" viewBox="0 0 120 180" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 20 C60 40 85 90 100 160" stroke-width="1.6" opacity="0.95"/>
+            <path d="M25 24 C20 40 30 55 45 62 M38 34 C30 52 42 70 58 78" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 24 C42 20 62 30 72 42 M38 34 C58 30 78 42 88 56" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f27" viewBox="0 0 160 110" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 55 C60 45 110 50 150 60" stroke-width="1.5" opacity="0.95"/>
+            <path d="M25 53 C22 35 35 25 50 20 M50 50 C45 30 60 20 78 16" stroke-width="1.1" opacity="0.85"/>
+            <path d="M25 53 C28 70 42 80 58 85 M50 50 C55 72 72 82 88 86" stroke-width="1.1" opacity="0.85"/>
+        </svg>
+        <svg class="falling-feather f28" viewBox="0 0 80 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 10 C36 50 38 90 40 130" stroke-width="1.4" opacity="0.9"/>
+            <path d="M39 20 C25 15 12 22 8 28 M38 38 C22 30 10 38 6 46" stroke-width="1.0" opacity="0.8"/>
+            <path d="M41 20 C55 15 68 22 72 28 M42 38 C58 30 70 38 74 46" stroke-width="1.0" opacity="0.8"/>
+        </svg>
+    </div>
+
+    <!-- Pencil Drawn White Flower 1 (Hero Right) -->
+    <svg class="pencil-element pencil-flower-1" viewBox="0 0 120 120" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M60 20 C40 10 20 30 30 50 C10 60 20 90 40 95 C50 110 80 110 90 95 C110 80 100 50 90 50 C100 30 80 10 60 20 Z" stroke-width="1.3" opacity="0.85"/>
+        <path d="M60 40 C50 35 45 45 50 55 C40 60 50 75 60 75 C70 75 75 60 70 55 C75 45 70 35 60 40 Z" stroke-width="1.1" opacity="0.9"/>
+        <path d="M25 85 Q10 95 5 110 Q20 110 32 98" stroke-width="1.2" opacity="0.75"/>
+        <path d="M95 85 Q110 95 115 110 Q100 110 88 98" stroke-width="1.2" opacity="0.75"/>
+    </svg>
+
+    <!-- Pencil Drawn White Flower 2 (Venues Left) -->
+    <svg class="pencil-element pencil-flower-2" viewBox="0 0 120 120" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M60 20 C40 10 20 30 30 50 C10 60 20 90 40 95 C50 110 80 110 90 95 C110 80 100 50 90 50 C100 30 80 10 60 20 Z" stroke-width="1.3" opacity="0.85"/>
+        <path d="M60 40 C50 35 45 45 50 55 C40 60 50 75 60 75 C70 75 75 60 70 55 Z" stroke-width="1.1" opacity="0.9"/>
+        <path d="M25 85 Q10 95 5 110 Q20 110 32 98" stroke-width="1.2" opacity="0.75"/>
+    </svg>
+
+    <!-- HERO SECTION -->
+    <div class="section" style="padding-bottom: 60px;">
+        <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: -10px;">The Wedding Of</p>
+        <h1 class="script-text" style="font-size: 4rem;">Romnick & Sheila</h1>
+        
+        <!-- MAIN ARCH PHOTO (Intimate table shot) -->
+        <div class="image-filter-wrapper shape-arch">
+            <img src="NICK PREN 3-2641.jpg" alt="Romnick and Sheila">
+        </div>
+
+        <h2 style="color: var(--dusty-blue); letter-spacing: 2px; font-size: 1.1rem; margin-top: 10px;">
+            SUNDAY | 27 | DECEMBER 2026<br>AT 2:30 PM
+        </h2>
+
+        <div style="margin-top: 25px; text-align: center;">
+            <p style="font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.95rem; color: var(--navy); margin-bottom: 4px;">
+                Our Lady of Mount Carmel Parish
+            </p>
+            <p style="letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; color: var(--grey); margin-bottom: 6px;">
+                Brgy. Dugmanon, Hinatuan<br>Surigao Del Sur
+            </p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Mount+Carmel+Parish+Brgy+Dugmanon+Hinatuan+Surigao+Del+Sur" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="map-btn" 
+               title="Open location in Google Maps">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>View Map</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- OUR LOVE STORY / GALLERY -->
+    <div class="section" style="padding-top: 0; padding-bottom: 60px;">
+        <h2 class="script-text" style="font-size: 3rem;">Our Love Story</h2>
+        <p style="font-style: italic; color: var(--grey); margin-bottom: 25px;">Two souls, one beautiful journey.</p>
+        
+        <!-- WEDDING VOWS DATE BANNER (Plain Background, No Card) -->
+        <div style="text-align: center; margin: 0 auto 25px auto; padding: 10px 15px;">
+            <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: var(--navy); margin-bottom: 6px; font-weight: 400; letter-spacing: 0.5px;">
+                We will exchange our wedding vows on
+            </p>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--navy); letter-spacing: 5px; font-weight: 400; text-transform: uppercase; margin: 0;">
+                DECEMBER 27, 2026
+            </h3>
+        </div>
+
+        <!-- Large Portrait Photo -->
+        <div class="image-filter-wrapper shape-portrait">
+            <img src="NICK PREN 3-2412.jpg" alt="Romnick and Sheila Reading">
+        </div>
+
+        <!-- Grid of 2 Photos -->
+        <div class="photo-grid-2">
+            <div class="image-filter-wrapper" style="border-radius: 10px 0 0 10px;">
+                <img src="NICK PREN 3-2824.jpg" alt="Romnick playing ukulele for Sheila">
+            </div>
+            <div class="image-filter-wrapper" style="border-radius: 0 10px 10px 0;">
+                <img src="NICK PREN 3-2673.jpg" alt="Romnick and Sheila holding hands">
+            </div>
+        </div>
+
+        <!-- NOW PLAYING MUSIC PLAYER (Plain Background, No Card) -->
+        <div class="music-player-card" style="padding: 15px 0; margin: 25px auto 0 auto; max-width: 480px; display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+            
+            <!-- Left Side: Play/Pause Circular Button -->
+            <button id="music-toggle-btn" onclick="toggleMusic()" style="width: 52px; height: 52px; border-radius: 50%; background-color: var(--navy); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(29, 53, 87, 0.25); transition: transform 0.2s ease; flex-shrink: 0;" title="Play / Pause Background Music">
+                <!-- Pause Icon (Default when playing) -->
+                <svg id="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                    <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                </svg>
+                <!-- Play Icon (Hidden when playing) -->
+                <svg id="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="white" style="display: none; margin-left: 2px;">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </button>
+
+            <!-- Center Info: NOW PLAYING & SONG TITLE -->
+            <div style="flex: 1; text-align: left;">
+                <span style="font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; color: var(--navy); display: block; margin-bottom: 2px;">
+                    NOW PLAYING
+                </span>
+                <span style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: var(--navy); font-weight: 500; display: block; letter-spacing: 0.5px;">
+                    Ikaw at Ako - Johnoy Danao
+                </span>
+            </div>
+
+            <!-- Right Side: Time Counter -->
+            <div id="music-timer" style="font-size: 0.85rem; font-weight: 400; color: var(--grey); letter-spacing: 1px; flex-shrink: 0;">
+                0:00
+            </div>
+
+            <!-- Audio Element -->
+            <audio id="wedding-audio" loop preload="auto">
+                <source src="Ikaw at Ako - Johnoy Danao.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- WEDDING COUNTDOWN TIMER SECTION (Matching Attached 3rd Design) -->
+        <div class="countdown-container" style="text-align: center; margin: 35px auto 10px auto; padding: 32px 15px 28px 15px; background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(235,243,249,0.88) 100%); border-radius: 20px; box-shadow: 0 10px 30px rgba(29, 53, 87, 0.08); border: 1px solid rgba(255,255,255,0.9); max-width: 500px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.1rem; color: var(--navy); letter-spacing: 3px; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">
+                COUNT THE DAYS
+            </h2>
+            <p style="font-size: 0.88rem; letter-spacing: 3px; text-transform: uppercase; color: var(--dusty-blue); font-weight: 500; margin-bottom: 25px;">
+                'TIL WE SAY I DO!
+            </p>
+
+            <!-- 4 Flip Card Groups Grid -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 440px; margin: 0 auto;">
+                
+                <!-- DAYS -->
+                <div class="countdown-box">
+                    <div class="card-pair" style="display: flex; justify-content: center; gap: 4px;">
+                        <div class="flip-card"><span id="days-tens">0</span></div>
+                        <div class="flip-card"><span id="days-ones">0</span></div>
+                    </div>
+                    <span class="countdown-label">DAYS</span>
+                </div>
+
+                <!-- HOURS -->
+                <div class="countdown-box">
+                    <div class="card-pair" style="display: flex; justify-content: center; gap: 4px;">
+                        <div class="flip-card"><span id="hours-tens">0</span></div>
+                        <div class="flip-card"><span id="hours-ones">0</span></div>
+                    </div>
+                    <span class="countdown-label">HOURS</span>
+                </div>
+
+                <!-- MINUTES -->
+                <div class="countdown-box">
+                    <div class="card-pair" style="display: flex; justify-content: center; gap: 4px;">
+                        <div class="flip-card"><span id="mins-tens">0</span></div>
+                        <div class="flip-card"><span id="mins-ones">0</span></div>
+                    </div>
+                    <span class="countdown-label">MINUTES</span>
+                </div>
+
+                <!-- SECONDS -->
+                <div class="countdown-box">
+                    <div class="card-pair" style="display: flex; justify-content: center; gap: 4px;">
+                        <div class="flip-card"><span id="secs-tens">0</span></div>
+                        <div class="flip-card"><span id="secs-ones">0</span></div>
+                    </div>
+                    <span class="countdown-label">SECONDS</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- VENUE & DETAILS (BLUE BACKGROUND) -->
+    <div class="bg-blue" style="padding-top: 60px; padding-bottom: 60px;">
+        <div class="edge-top"></div>
+        <div class="section">
+            <h2 class="script-text">The Venues</h2>
+            <p style="text-transform: uppercase; letter-spacing: 2px; margin-top: 20px;">Ceremony & Reception</p>
+            <h3 style="font-size: 1.2rem; margin: 10px 0 5px 0;">Our Lady of Mount Carmel Parish</h3>
+            <p style="margin-bottom: 8px;">Brgy. Dugmanon, Hinatuan<br>Surigao Del Sur</p>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Mount+Carmel+Parish+Brgy+Dugmanon+Hinatuan+Surigao+Del+Sur" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="map-btn map-btn-light" 
+                   title="Open location in Google Maps">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Open in Google Maps</span>
+                </a>
+            </div>
+
+            <!-- LANDSCAPE PHOTO (Running outside) -->
+            <div class="image-filter-wrapper shape-landscape" style="border: 3px solid rgba(255,255,255,0.3);">
+                <img src="NICK PREN 5-3097.jpg" alt="Romnick and Sheila walking">
+            </div>
+
+            <h2 class="script-text" style="margin-top: 40px; color: white;">Wedding details</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon-box" title="Guest Arrives">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <span class="timeline-time">2:00 PM</span>
+                    <span class="timeline-title">Guest Arrives</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon-box" title="Ceremony">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="12" r="5"></circle>
+                            <circle cx="15" cy="12" r="5"></circle>
+                            <path d="M12 7l1-2 2 1"></path>
+                        </svg>
+                    </div>
+                    <span class="timeline-time">3:00 PM</span>
+                    <span class="timeline-title">Ceremony</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon-box" title="Cocktail">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 22h8"></path>
+                            <path d="M12 11v11"></path>
+                            <path d="m19 3-7 8-7-8Z"></path>
+                            <line x1="12" y1="3" x2="16" y2="7"></line>
+                        </svg>
+                    </div>
+                    <span class="timeline-time">4:30 PM</span>
+                    <span class="timeline-title">Cocktail</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon-box" title="Dinner">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                            <path d="M7 2v20"></path>
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                        </svg>
+                    </div>
+                    <span class="timeline-time">5:30 PM</span>
+                    <span class="timeline-title">Dinner</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon-box" title="Send Off">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>
+                        </svg>
+                    </div>
+                    <span class="timeline-time">7:00 PM</span>
+                    <span class="timeline-title">Send Off</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENTOURAGE SECTION -->
+    <div class="section entourage-section" style="padding-top: 60px; padding-bottom: 50px; background: linear-gradient(160deg, rgba(244, 248, 251, 0.95) 0%, rgba(226, 237, 246, 0.95) 40%, rgba(216, 230, 242, 0.95) 75%, rgba(238, 245, 251, 0.95) 100%); border-radius: 16px; margin: 20px 10px;">
+        <h1 class="script-text" style="font-size: 4rem; color: var(--navy); text-shadow: 0 2px 4px rgba(255,255,255,0.8);">Entourage</h1>
+        
+        <div class="entourage-grid">
+            <div class="entourage-group">
+                <h4>Parents of the Groom</h4>
+                <p>Melecio P. Siano Jr. (+)</p>
+                <p>Catalina P. Siano</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Parents of the Bride</h4>
+                <p>Pedro P. Padohinog</p>
+                <p>Madelyn S. Padohinog</p>
+            </div>
+        </div>
+
+        <div class="entourage-group" style="margin-top: 20px;">
+            <h4>Principal Sponsors</h4>
+            <p style="font-style: italic; font-size: 0.8rem; margin-bottom: 15px;">To witness our vows</p>
+            <div class="entourage-grid" style="margin-top: 0;">
+                <div>
+                    <p>Mrs. Juanita L. Serna</p>
+                    <p>Mrs. Elenita B. Rojas</p>
+                    <p>Mrs. Shirley S. Guibo</p>
+                    <p>Mrs. Esperanza B. Espiritu</p>
+                    <p>Mrs. Salvacion Seredrica</p>
+                    <p>Mrs. Mary Rafael</p>
+                    <p>Mrs. Jean S. Grecia</p>
+                    <p>Mr. Vonevives Setubal</p>
+                    <p>Mr. Rey Brillantes</p>
+                    <p>Mrs. Lettee Sarita</p>
+                </div>
+                <div>
+                    <p>Mr. & Mrs. Venancio Espirat</p>
+                    <p>Mr. & Mrs. Cecilio Serna</p>
+                    <p>Mr. & Mrs. Nerito Malinao</p>
+                    <p>Mr. & Mrs. Nelson Parro</p>
+                    <p>Mr. & Mrs. Sixto H. Uypala</p>
+                    <p>Mr. & Mrs. Rudy Siano</p>
+                    <p>Mr. & Mrs. Louwel Jun Seat</p>
+                    <p>Mrs. Elvira Busa</p>
+                    <p>Mrs. Carmelita S. Recalcar</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="entourage-grid">
+            <div class="entourage-group">
+                <h4>Best Man</h4>
+                <p>Melvin P. Siano</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Maid of Honor</h4>
+                <p>Sarah Jane P. Elicanal</p>
+            </div>
+        </div>
+
+        <div class="entourage-group" style="text-align: center; margin-top: 20px;">
+            <h4>Secondary Sponsors</h4>
+            <p style="margin-top: 10px;"><strong>To lighten our path</strong></p>
+            <p>Mr. & Mrs. Cresencio Serna Jr.</p>
+            
+            <div class="entourage-grid" style="margin-top: 15px;">
+                <div>
+                    <p><strong>To cloth us together</strong></p>
+                    <p>Mr. & Mrs. Conrad S. Viola</p>
+                </div>
+                <div>
+                    <p><strong>To tie us as one</strong></p>
+                    <p>Mr. & Mrs. Braiden Ray S. Brigoli</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="script-text" style="font-size: 2.5rem; margin-top: 40px;">To assist us in our needs</h2>
+        <div class="entourage-grid">
+            <div class="entourage-group">
+                <h4>Groomsmen</h4>
+                <p>Louie James Baldomero</p>
+                <p>Gean Daniel P. Dalida</p>
+                <p>Kyle Gino P. Germones</p>
+                <p>Tchavez S. Seterra</p>
+                <p>Kaehl Jasper Malinao</p>
+                <p>Jimuel Cabilin</p>
+                <p>Brian Buñor</p>
+                <p>Wilf Portante</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Bridesmaids</h4>
+                <p>Jillian Baldomero</p>
+                <p>Jovelyn F. Portante</p>
+                <p>Anjelin Reign S. Padohinog</p>
+                <p>Angelie S. Segurigan</p>
+                <p>Ericha Duray</p>
+                <p>Quenvie Marie R. Serna</p>
+                <p>Meri Joyce S. Apio</p>
+                <p>Chea Daniela Shane N. Peras</p>
+            </div>
+        </div>
+
+        <div class="entourage-grid">
+            <div class="entourage-group">
+                <h4>Ring Bearer</h4>
+                <p>Nathaniel Edd G. Espejon</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Coin Bearer</h4>
+                <p>Ace Vincent S. Sandig</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Bible Bearer</h4>
+                <p>Acequel S. Olaivar</p>
+            </div>
+            <div class="entourage-group">
+                <h4>Little Bride</h4>
+                <p>Ma. Kyllie June D. Seat</p>
+            </div>
+        </div>
+
+        <div class="entourage-group" style="text-align: center;">
+            <h4>Flower Girls</h4>
+            <p>Akeerah Emery L. Rojas</p>
+            <p>Xoese Pebella I. Lauriza</p>
+            <p>Aaliyah Cailey P. Plata</p>
+            <p>Katelyn Coralat</p>
+            <p>Nathalie G. Espejon</p>
+        </div>
+    </div>
+
+    <!-- GUIDELINES SECTION -->
+    <div class="section" style="background-color: var(--light-blue); color: white;">
+        
+        <!-- CLOSING SQUARE PHOTO (Standing in suits) -->
+        <div class="image-filter-wrapper shape-square" style="border: 3px solid white; border-radius: 50%;">
+             <img src="NICK PREN 5-3134.jpg" alt="Romnick and Sheila smiling">
+        </div>
+
+        <h3 style="color: white; margin-top: 30px; text-align: center;">GIFT GUIDE</h3>
+        <p style="color: white; font-style: italic; max-width: 80%; margin: 10px auto; text-align: center;">
+            "With all that we have, we've been truly blessed. Your presence and prayers are all that we request."
+        </p>
+
+        <p style="color: white; max-width: 80%; margin: 10px auto; text-align: center;">
+            But if you'd like to give us a little something, we'll happily receive it as we build our first home and memories together.
+        </p>
+        <p style="color: white; max-width: 80%; margin: 10px auto; text-align: center;">
+            You may scan the QR code below.
+        </p>
+
+        <!-- QR CODE TRANSFER CARD -->
+        <div class="qr-card">
+            <div class="qr-image-wrapper">
+                <!-- Make sure 9782.jpg is uploaded to your Netlify folder! -->
+                <img src="9782.jpg" alt="InstaPay Transfer QR Code">
+            </div>
+            <h4 class="qr-title">Romnick S.</h4>
+            <p class="qr-subtitle">InstaPay Transfer</p>
+        </div>
+
+        <h3 style="color: white; margin-top: 30px;">CAN I BRING SOMEONE?</h3>
+        <p style="color: white; max-width: 80%; margin: 10px auto;">
+            Yes, you may bring one guest. Please indicate their name in your RSVP.
+        </p>
+
+        <!-- DRESS CODE ATTIRE ILLUSTRATION CARD -->
+        <div class="dress-code-card" style="background: white; border-radius: 18px; padding: 20px 12px; margin: 35px auto 25px auto; max-width: 92%; box-shadow: 0 12px 35px rgba(29, 53, 87, 0.18); text-align: center; border: 1px solid rgba(255,255,255,0.9);">
+            <img src="dress_attire.jpg" alt="Dress Code Attires" style="width: 100%; max-width: 480px; height: auto; border-radius: 10px; display: block; margin: 0 auto;">
+        </div>
+
+        <h3 style="color: white; margin-top: 35px; letter-spacing: 2px; text-transform: uppercase;">Attire Guidelines</h3>
+        <p style="color: rgba(255,255,255,0.9); font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;">
+            Formal / Semi-Formal
+        </p>
+        
+        <div class="attire-container">
+            <p class="attire-label" style="margin-bottom: 14px;"> Attire Color Codes</p>
+            <div class="color-palette" style="gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <div class="color-circle" style="background-color: #44474a;" title="Dark Charcoal"></div>
+                <div class="color-circle" style="background-color: #9ba0a6;" title="Medium Grey"></div>
+                <div class="color-circle" style="background-color: #4e8cb9;" title="Steel Blue"></div>
+                <div class="color-circle" style="background-color: #75a8cd;" title="Dusty Blue"></div>
+                <div class="color-circle" style="background-color: #a2cde8;" title="Sky Blue"></div>
+                <div class="color-circle" style="background-color: #192838;" title="Deep Navy"></div>
+                <div class="color-circle" style="background-color: #e6ecef; border: 2px solid rgba(255,255,255,0.9);" title="Pearl White"></div>
+            </div>
+        </div>
+
+        <!-- NEW FUNCTIONAL RSVP FORM -->
+        <div class="rsvp-section" id="rsvp">
+            <h2 class="rsvp-title">RSVP</h2>
+            <hr class="rsvp-line">
+            <h3 class="rsvp-subtitle">Your presence will make our day even more special.</h3>
+            
+            <p class="rsvp-italic">Please let us know if you can make it.</p>
+            <p class="rsvp-deadline">If we don't receive your response on <span class="blue-text">December 1, 2026</span>, we'll sadly have to count it as "No."</p>
+
+            <!-- Standard Netlify Native Form (Parses directly at deploy time) -->
+            <form name="Wedding RSVP" method="POST" netlify data-netlify="true" class="rsvp-form">
+                
+                <!-- This hidden input guarantees Netlify registers the form -->
+                <input type="hidden" name="form-name" value="Wedding RSVP" />
+                <input type="hidden" name="subject" value="New attendance response from %{formName}" />
+                            
+                <div class="input-group">
+                    <label class="input-label" for="guest-name">
+                        <!-- Simple user SVG icon -->
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        Full Name
+                    </label>
+                    <input type="text" id="guest-name" name="Name" class="rsvp-input" placeholder="Your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="plus-one">
+                        <!-- Simple people/plus-one SVG icon -->
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        Plus One / Additional Guest (+)
+                    </label>
+                    <input type="text" id="plus-one" name="Plus One" class="rsvp-input" placeholder="Name of additional guest (or leave blank if none)">
+                </div>
+
+                <div class="input-group" style="margin-top: 15px;">
+                    <span class="input-label" style="justify-content: center;">Will you be attending?</span>
+                    <div class="radio-group">
+                        <label class="radio-card">
+                            <input type="radio" name="Attending" value="Yes, joyfully!" required>
+                            <span class="radio-custom"></span>
+                            Yes, joyfully!
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="Attending" value="No, regrettably.">
+                            <span class="radio-custom"></span>
+                            No, regrettably.
+                        </label>
+                    </div>
+                </div>
+
+                 <p id="rsvp-error-message" role="alert" hidden style="color: #a32121; text-align: center;"></p>
+                 <button type="submit" class="submit-btn">Send RSVP</button>
+            </form>
+
+            <!-- RSVP SUBMISSION INSTANT USER FEEDBACK CONFIRMATION BOX -->
+            <div id="rsvp-success-message" style="display: none; text-align: center; padding: 28px 18px; background: #f4f8fb; border-radius: 12px; border: 1px solid #d0e1fd; margin-top: 15px; box-shadow: 0 4px 18px rgba(29, 53, 87, 0.06);">
+                <div style="width: 58px; height: 58px; background-color: #e8f5e9; color: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; box-shadow: 0 3px 10px rgba(46, 125, 50, 0.15);">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 8px;">RSVP Received!</h3>
+                <p id="rsvp-guest-confirm-text" style="font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #4b5563; line-height: 1.5; margin-bottom: 20px;">
+                    Thank you so much! Your RSVP response has been recorded.
+                </p>
+                <div style="display: inline-block; padding: 8px 18px; background-color: rgba(98, 131, 155, 0.12); border-radius: 20px; color: var(--dusty-blue); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
+                    ✓ RSVP response received
+                </div>
+            </div>
+        </div>
+        <!-- END OF RSVP FORM -->
+
+        <!-- RECEPTION LOCATION MAP SECTION -->
+        <div class="reception-location-card" style="margin: 35px auto 20px auto; padding: 25px 15px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.3); text-align: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);">
+            
+            <h3 style="color: white; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;">RECEPTION</h3>
+            
+            <!-- Hand-Drawn Location Map Trail Icon matching attached photo -->
+            <div style="margin: 15px auto; max-width: 260px;">
+                <svg viewBox="0 0 200 140" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: auto; display: block; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));">
+                    <!-- Large Left Location Pin -->
+                    <path d="M55 42 C40 42 28 54 28 69 C28 89 55 118 55 118 C55 118 82 89 82 69 C82 54 70 42 55 42 Z" stroke-width="4.5"/>
+                    <circle cx="55" cy="67" r="13" stroke-width="4"/>
+                    <path d="M42 57 C46 51 52 49 58 50" stroke-width="2.5" opacity="0.7"/>
+
+                    <!-- Small Right Top Location Pin -->
+                    <path d="M155 16 C146 16 139 23 139 32 C139 44 155 60 155 60 C155 60 171 44 171 32 C171 23 164 16 155 16 Z" stroke-width="3.5"/>
+                    <circle cx="155" cy="30" r="7.5" stroke-width="3"/>
+
+                    <!-- Winding Dashed Trail Connecting The Pins -->
+                    <path d="M68 118 C95 118 135 118 155 105 C175 93 175 76 150 68 C125 60 125 42 150 38 C152 37 154 34 155 31" stroke-width="4" stroke-dasharray="7 7"/>
+                </svg>
+            </div>
+
+            <!-- Location Name & Address -->
+            <h4 style="color: white; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                Dugmanon Covered Court
+            </h4>
+            <p style="color: rgba(255, 255, 255, 0.92); font-size: 0.88rem; font-weight: 400; letter-spacing: 0.5px; margin-bottom: 16px;">
+                Brgy. Dugmanon, Surigao del Sur
+            </p>
+
+            <!-- Interactive Google Maps Link Button -->
+            <a href="https://maps.app.goo.gl/VN5PHTv5e79RgQue6" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="map-btn map-btn-light" 
+               title="Open Reception location in Google Maps">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Open in Google Maps</span>
+            </a>
+        </div>
+
+        <h2 class="script-text" style="color: white; margin-top: 40px;">Snap and Share</h2>
+        <p style="color: white;">Capture the moments and share the love!<br>Don't forget to tag your photos with our hashtag:</p>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); font-weight: 600; margin-top: 15px;">#SHEILectedByGodForRomnick</p>
+    </div>
+
+</div>
+
+<!-- JavaScript to trigger animation, music player, and live countdown -->
+<script>
+    let isPlaying = false;
+
+    function toggleMusic() {
+        const audio = document.getElementById('wedding-audio');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+
+        if (!audio) return;
+
+        if (audio.paused) {
+            audio.play().then(() => {
+                isPlaying = true;
+                if (playIcon) playIcon.style.display = 'none';
+                if (pauseIcon) pauseIcon.style.display = 'block';
+            }).catch(e => console.log('Audio playback error:', e));
+        } else {
+            audio.pause();
+            isPlaying = false;
+            if (playIcon) playIcon.style.display = 'block';
+            if (pauseIcon) pauseIcon.style.display = 'none';
+        }
+    }
+
+    // Audio timeupdate listener to display M:SS counter
+    document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById('wedding-audio');
+        const timerEl = document.getElementById('music-timer');
+        if (audio && timerEl) {
+            audio.addEventListener('timeupdate', () => {
+                const mins = Math.floor(audio.currentTime / 60);
+                const secs = Math.floor(audio.currentTime % 60);
+                timerEl.innerText = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            });
+        }
+    });
+
+    function openInvitation() {
+        const envelope = document.getElementById('envelope');
+        const overlay = document.getElementById('envelope-overlay');
+        const audio = document.getElementById('wedding-audio');
+        
+        if (envelope.classList.contains('open')) return;
+
+        // Trigger flap opening & polaroids popping out
+        envelope.classList.add('open');
+
+        // Start background music automatically on user tap
+        if (audio) {
+            audio.play().then(() => {
+                isPlaying = true;
+                const playIcon = document.getElementById('play-icon');
+                const pauseIcon = document.getElementById('pause-icon');
+                if (playIcon && pauseIcon) {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                }
+            }).catch(e => console.log('Autoplay deferred:', e));
+        }
+        
+        // Wait for 3.5 seconds so guests can fully see the 3 photos, then smoothly fade out
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 3500);
+    }
+
+    // Live Wedding Countdown Timer to Dec 27, 2026 14:30:00
+    function updateCountdown() {
+        const targetDate = new Date('December 27, 2026 14:30:00').getTime();
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            ['days-tens', 'days-ones', 'hours-tens', 'hours-ones', 'mins-tens', 'mins-ones', 'secs-tens', 'secs-ones'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = '0';
+            });
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const dStr = days < 100 ? String(days).padStart(2, '0') : String(days);
+        const hStr = String(hours).padStart(2, '0');
+        const mStr = String(mins).padStart(2, '0');
+        const sStr = String(secs).padStart(2, '0');
+
+        if (dStr.length > 2) {
+            const dt = document.getElementById('days-tens');
+            const doEl = document.getElementById('days-ones');
+            if (dt) dt.innerText = dStr.slice(0, -1);
+            if (doEl) doEl.innerText = dStr.slice(-1);
+        } else {
+            const dt = document.getElementById('days-tens');
+            const doEl = document.getElementById('days-ones');
+            if (dt) dt.innerText = dStr[0];
+            if (doEl) doEl.innerText = dStr[1];
+        }
+
+        const ht = document.getElementById('hours-tens');
+        const ho = document.getElementById('hours-ones');
+        if (ht) ht.innerText = hStr[0];
+        if (ho) ho.innerText = hStr[1];
+
+        const mt = document.getElementById('mins-tens');
+        const mo = document.getElementById('mins-ones');
+        if (mt) mt.innerText = mStr[0];
+        if (mo) mo.innerText = mStr[1];
+
+        const st = document.getElementById('secs-tens');
+        const so = document.getElementById('secs-ones');
+        if (st) st.innerText = sStr[0];
+        if (so) so.innerText = sStr[1];
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Netlify Form Submission + Instant In-Page User Feedback Handler
+    document.addEventListener('DOMContentLoaded', () => {
+        const rsvpForm = document.querySelector('.rsvp-form');
+        const successBox = document.getElementById('rsvp-success-message');
+        const confirmText = document.getElementById('rsvp-guest-confirm-text');
+
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const submitButton = rsvpForm.querySelector('button[type="submit"]');
+                if (submitButton.disabled) return;
+                
+                const formData = new FormData(rsvpForm);
+                if (!formData.has('form-name')) {
+                    formData.append('form-name', 'Wedding RSVP');
+                }
+
+                const guestName = formData.get('Name') || 'Guest';
+                const attendance = formData.get('Attending') || '';
+                
+                const errorBox = document.getElementById('rsvp-error-message');
+                const originalButtonText = submitButton.textContent;
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending RSVP…';
+                rsvpForm.setAttribute('aria-busy', 'true');
+                if (errorBox) errorBox.hidden = true;
+
+                try {
+                    const bodyParams = new URLSearchParams();
+                    for (const [key, value] of formData.entries()) {
+                        bodyParams.append(key, value);
+                    }
+
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: bodyParams.toString()
+                    });
+
+                   if (response.ok) {
+                        if (confirmText) {
+                            const responseMessage = attendance === 'Yes, joyfully!'
+                                ? "We can't wait to celebrate with you!"
+                                : "Thank you for letting us know. We'll miss you!";
+                            confirmText.textContent = `Thank you, ${guestName}! Your RSVP response ("${attendance}") has been received. ${responseMessage}`;
+                        }
+
+                        rsvpForm.style.display = 'none';
+                        if (successBox) {
+                            successBox.style.display = 'block';
+                            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                         throw new Error('RSVP submission was not accepted.');
+                    }
+                } catch (err) {
+                        if  (errorBox) {
+                        errorBox.textContent = 'Your RSVP could not be confirmed. Please check your connection and try again.';
+                        errorBox.hidden = false;
+                        }
+                    }
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                    rsvpForm.removeAttribute('aria-busy');
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
