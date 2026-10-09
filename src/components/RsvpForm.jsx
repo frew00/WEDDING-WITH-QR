@@ -57,7 +57,7 @@ export default function RsvpForm() {
     setIsDownloading(true);
 
     try {
-      await new Promise((r) => setTimeout(r, 80));
+      await new Promise((r) => setTimeout(r, 50));
       const canvas = await html2canvas(cardRef.current, {
         scale: 2,
         backgroundColor: '#ffffff',
@@ -74,12 +74,33 @@ export default function RsvpForm() {
         .replace(/[^a-zA-Z0-9]/g, '_');
       const fileName = `RSVP_Confirmation_${nameSlug}.png`;
 
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = image;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      let shared = false;
+      try {
+        const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
+        if (blob && navigator.canShare) {
+          const file = new File([blob], fileName, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'RSVP Confirmation',
+              text: "RSVP Confirmation for Romnick & Sheila's Wedding",
+            });
+            shared = true;
+          }
+        }
+      } catch (shareErr) {
+        console.log('Native Web Share bypassed/canceled:', shareErr);
+      }
+
+      if (!shared) {
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = image;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     } catch (err) {
       console.error('[RSVP Download Error]:', err);
     } finally {

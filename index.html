@@ -2415,24 +2415,23 @@
             });
         }
 
-        // 4. html2canvas Download Confirmation Button Handler
+        // 4. html2canvas Automatic Mobile & Desktop Download Handler
         if (downloadBtn) {
             downloadBtn.addEventListener('click', async () => {
                 const summaryCard = document.getElementById('rsvp-summary-card');
                 if (!summaryCard) return;
 
                 if (typeof html2canvas === 'undefined') {
-                    alert('Download script is still loading. Please take a screenshot of your confirmation card!');
+                    alert('Download script is loading. Please screenshot your receipt above!');
                     return;
                 }
 
                 const originalHTML = downloadBtn.innerHTML;
                 downloadBtn.disabled = true;
-                downloadBtn.innerHTML = '<span>Generating Image...</span>';
+                downloadBtn.innerHTML = '<span>Downloading...</span>';
 
                 try {
-                    // Small delay to ensure layout stability
-                    await new Promise(resolve => setTimeout(resolve, 80));
+                    await new Promise(resolve => setTimeout(resolve, 50));
 
                     const canvas = await html2canvas(summaryCard, {
                         scale: 2,
@@ -2442,13 +2441,13 @@
                         logging: false
                     });
 
-                    const dataUrl = canvas.toDataURL('image/png');
                     const guestName = (document.getElementById('summary-guest-name')?.textContent || 'Guest')
                         .trim()
                         .replace(/[^a-zA-Z0-9]/g, '_');
                     const fileName = `RSVP_Confirmation_${guestName}.png`;
+                    const dataUrl = canvas.toDataURL('image/png');
 
-                    // Always populate Mobile Image Preview container so mobile users can tap & hold to save
+                    // 1. Update mobile image element
                     const mobilePreview = document.getElementById('mobile-image-preview-container');
                     const mobileImg = document.getElementById('mobile-confirmation-img');
                     const mobileLink = document.getElementById('mobile-direct-link');
@@ -2460,49 +2459,46 @@
                     }
                     if (mobilePreview) {
                         mobilePreview.style.display = 'block';
-                        mobilePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }
 
-                    // Attempt automatic file download
-                    if (canvas.toBlob) {
-                        canvas.toBlob((blob) => {
-                            if (!blob) {
-                                triggerFallbackDownload(dataUrl, fileName);
-                                return;
+                    // 2. Native Mobile Share API (Triggers native "Save to Photos" / "Save Image" on iOS & Android)
+                    let shared = false;
+                    try {
+                        const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+                        if (blob && navigator.canShare) {
+                            const file = new File([blob], fileName, { type: 'image/png' });
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    files: [file],
+                                    title: 'RSVP Confirmation',
+                                    text: 'RSVP Confirmation for Romnick & Sheila\'s Wedding'
+                                });
+                                shared = true;
                             }
-                            const blobUrl = URL.createObjectURL(blob);
-                            const link = document.createElement('a');
-                            link.download = fileName;
-                            link.href = blobUrl;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
-                        }, 'image/png');
-                    } else {
-                        triggerFallbackDownload(dataUrl, fileName);
+                        }
+                    } catch (shareErr) {
+                        console.log('Native Web Share bypassed/canceled:', shareErr);
                     }
+
+                    // 3. Direct Automatic Link Download (Desktop & Supported Mobile Browsers)
+                    if (!shared) {
+                        const link = document.createElement('a');
+                        link.download = fileName;
+                        link.href = dataUrl;
+                        link.target = '_blank';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+
                 } catch (err) {
                     console.error('[RSVP Download Error]:', err);
-                    alert('Could not generate automatic download. Please take a screenshot of the confirmation receipt card!');
+                    alert('Could not download image automatically. Please screenshot the card above!');
                 } finally {
                     downloadBtn.disabled = false;
                     downloadBtn.innerHTML = originalHTML;
                 }
             });
-        }
-
-        function triggerFallbackDownload(dataUrl, fileName) {
-            try {
-                const link = document.createElement('a');
-                link.download = fileName;
-                link.href = dataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (err) {
-                console.error('Fallback download failed:', err);
-            }
         }
     });
 </script>
