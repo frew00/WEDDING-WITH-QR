@@ -2160,10 +2160,7 @@
                     <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px; line-height: 1.4;">
                         If automatic download did not start on your phone, <strong>tap & hold the image below</strong> to save it directly to your Photos or Gallery.
                     </p>
-                    <img id="mobile-confirmation-img" alt="RSVP Confirmation Receipt Card" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; display: block; margin: 0 auto 12px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />
-                    <a id="mobile-direct-link" href="#" target="_blank" download style="display: inline-block; padding: 8px 18px; background-color: var(--dusty-blue); color: white; border-radius: 6px; font-size: 0.82rem; font-weight: 600; text-decoration: none;">
-                        Open Full Image
-                    </a>
+                    <img id="mobile-confirmation-img" alt="RSVP Confirmation Receipt Card" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; display: block; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />
                 </div>
             </div>
         </div>
@@ -2450,13 +2447,8 @@
                     // 1. Update mobile image element
                     const mobilePreview = document.getElementById('mobile-image-preview-container');
                     const mobileImg = document.getElementById('mobile-confirmation-img');
-                    const mobileLink = document.getElementById('mobile-direct-link');
 
                     if (mobileImg) mobileImg.src = dataUrl;
-                    if (mobileLink) {
-                        mobileLink.href = dataUrl;
-                        mobileLink.download = fileName;
-                    }
                     if (mobilePreview) {
                         mobilePreview.style.display = 'block';
                     }

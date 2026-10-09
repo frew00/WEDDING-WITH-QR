@@ -300,15 +300,6 @@ export default function RsvpForm() {
                 alt="RSVP Confirmation Card Preview"
                 className="w-full h-auto rounded-lg border border-slate-200 shadow-sm"
               />
-              <a
-                href={previewImage}
-                download={`RSVP_Confirmation_${(submissionData?.name || 'Guest').replace(/[^a-zA-Z0-9]/g, '_')}.png`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block px-4 py-2 bg-[#62839b] text-white rounded-md text-xs font-semibold"
-              >
-                Open Full Image
-              </a>
             </div>
           )}
         </div>
