@@ -20,6 +20,7 @@ export default function RsvpForm() {
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionData, setSubmissionData] = useState(null);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,6 +100,7 @@ export default function RsvpForm() {
         link.click();
         document.body.removeChild(link);
       }
+      setDownloadSuccess(true);
     } catch (err) {
       console.error('[RSVP Download Error]:', err);
     } finally {
@@ -268,7 +270,11 @@ export default function RsvpForm() {
             type="button"
             onClick={handleDownload}
             disabled={isDownloading}
-            className="w-full bg-[#1D3557] hover:bg-[#152742] text-white py-3.5 px-6 rounded-xl font-serif text-base font-semibold shadow-md transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70"
+            className={`w-full text-white py-3.5 px-6 rounded-xl font-serif text-base font-semibold shadow-md transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-70 ${
+              downloadSuccess
+                ? 'bg-emerald-700 hover:bg-emerald-800'
+                : 'bg-[#1D3557] hover:bg-[#152742]'
+            }`}
           >
             <svg
               className="w-5 h-5"
@@ -284,8 +290,20 @@ export default function RsvpForm() {
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
               />
             </svg>
-            <span>{isDownloading ? 'Generating Image...' : 'Download Confirmation'}</span>
+            <span>
+              {isDownloading
+                ? 'Generating Image...'
+                : downloadSuccess
+                ? '✓ Confirmation Saved!'
+                : 'Download Confirmation'}
+            </span>
           </button>
+
+          {downloadSuccess && (
+            <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-xl p-4 text-center font-sans font-semibold text-sm shadow-sm leading-relaxed">
+              🎉 Confirmation Saved Successfully! Please send a copy of this receipt directly to the host to secure your RSVP.
+            </div>
+          )}
         </div>
       )}
     </div>

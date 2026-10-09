@@ -2151,6 +2151,11 @@
                     </svg>
                     <span>Download Confirmation</span>
                 </button>
+
+                <!-- Post-Download Success Feedback Box -->
+                <div id="download-feedback-toast" style="display: none; margin-top: 16px; padding: 14px 18px; background-color: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 12px; color: #2e7d32; font-size: 0.88rem; font-weight: 600; text-align: center; line-height: 1.5; box-shadow: 0 4px 14px rgba(46, 125, 50, 0.12);">
+                    🎉 Confirmation Saved Successfully! Please send a copy of this receipt directly to the host to secure your RSVP.
+                </div>
             </div>
         </div>
         <!-- END OF RSVP FORM -->
@@ -2463,12 +2468,26 @@
                         document.body.removeChild(link);
                     }
 
+                    // 4. Visual Feedback Toast & Button Success State
+                    const feedbackToast = document.getElementById('download-feedback-toast');
+                    if (feedbackToast) {
+                        feedbackToast.style.display = 'block';
+                        feedbackToast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+
+                    downloadBtn.style.backgroundColor = '#2e7d32';
+                    downloadBtn.innerHTML = '<span>✓ Confirmation Saved!</span>';
+
+                    setTimeout(() => {
+                        downloadBtn.style.backgroundColor = '';
+                        downloadBtn.innerHTML = originalHTML;
+                    }, 4000);
+
                 } catch (err) {
                     console.error('[RSVP Download Error]:', err);
                     alert('Could not download image automatically. Please screenshot the card above!');
                 } finally {
                     downloadBtn.disabled = false;
-                    downloadBtn.innerHTML = originalHTML;
                 }
             });
         }
