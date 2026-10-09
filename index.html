@@ -2151,6 +2151,20 @@
                     </svg>
                     <span>Download Confirmation</span>
                 </button>
+
+                <!-- Mobile Image Save Preview (Displays image for mobile tap & hold save) -->
+                <div id="mobile-image-preview-container" style="display: none; margin-top: 18px; text-align: center; background: #ffffff; padding: 16px; border-radius: 12px; border: 1px solid #cbd5e1; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.88rem; color: var(--navy); font-weight: 600; margin-bottom: 6px;">
+                        📸 Confirmation Image Ready!
+                    </p>
+                    <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 12px; line-height: 1.4;">
+                        If automatic download did not start on your phone, <strong>tap & hold the image below</strong> to save it directly to your Photos or Gallery.
+                    </p>
+                    <img id="mobile-confirmation-img" alt="RSVP Confirmation Receipt Card" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #e2e8f0; display: block; margin: 0 auto 12px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />
+                    <a id="mobile-direct-link" href="#" target="_blank" download style="display: inline-block; padding: 8px 18px; background-color: var(--dusty-blue); color: white; border-radius: 6px; font-size: 0.82rem; font-weight: 600; text-decoration: none;">
+                        Open Full Image
+                    </a>
+                </div>
             </div>
         </div>
         <!-- END OF RSVP FORM -->
@@ -2428,15 +2442,32 @@
                         logging: false
                     });
 
+                    const dataUrl = canvas.toDataURL('image/png');
                     const guestName = (document.getElementById('summary-guest-name')?.textContent || 'Guest')
                         .trim()
                         .replace(/[^a-zA-Z0-9]/g, '_');
                     const fileName = `RSVP_Confirmation_${guestName}.png`;
 
+                    // Always populate Mobile Image Preview container so mobile users can tap & hold to save
+                    const mobilePreview = document.getElementById('mobile-image-preview-container');
+                    const mobileImg = document.getElementById('mobile-confirmation-img');
+                    const mobileLink = document.getElementById('mobile-direct-link');
+
+                    if (mobileImg) mobileImg.src = dataUrl;
+                    if (mobileLink) {
+                        mobileLink.href = dataUrl;
+                        mobileLink.download = fileName;
+                    }
+                    if (mobilePreview) {
+                        mobilePreview.style.display = 'block';
+                        mobilePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+
+                    // Attempt automatic file download
                     if (canvas.toBlob) {
                         canvas.toBlob((blob) => {
                             if (!blob) {
-                                triggerFallbackDownload(canvas, fileName);
+                                triggerFallbackDownload(dataUrl, fileName);
                                 return;
                             }
                             const blobUrl = URL.createObjectURL(blob);
@@ -2449,7 +2480,7 @@
                             setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
                         }, 'image/png');
                     } else {
-                        triggerFallbackDownload(canvas, fileName);
+                        triggerFallbackDownload(dataUrl, fileName);
                     }
                 } catch (err) {
                     console.error('[RSVP Download Error]:', err);
@@ -2461,18 +2492,16 @@
             });
         }
 
-        function triggerFallbackDownload(canvas, fileName) {
+        function triggerFallbackDownload(dataUrl, fileName) {
             try {
-                const image = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.download = fileName;
-                link.href = image;
+                link.href = dataUrl;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
             } catch (err) {
                 console.error('Fallback download failed:', err);
-                alert('Please take a screenshot of the confirmation card above!');
             }
         }
     });

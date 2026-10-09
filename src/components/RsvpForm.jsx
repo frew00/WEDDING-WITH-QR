@@ -20,9 +20,7 @@ export default function RsvpForm() {
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionData, setSubmissionData] = useState(null);
-  const [isDownloading, setIsDownloading] = useState(false);
-
-  const cardRef = useRef(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,27 +57,31 @@ export default function RsvpForm() {
     setIsDownloading(true);
 
     try {
+      await new Promise((r) => setTimeout(r, 80));
       const canvas = await html2canvas(cardRef.current, {
         scale: 2,
         backgroundColor: '#ffffff',
         useCORS: true,
+        allowTaint: true,
         logging: false,
       });
 
       const image = canvas.toDataURL('image/png');
+      setPreviewImage(image);
+
       const nameSlug = (submissionData?.name || 'Guest')
         .trim()
         .replace(/[^a-zA-Z0-9]/g, '_');
+      const fileName = `RSVP_Confirmation_${nameSlug}.png`;
 
       const link = document.createElement('a');
-      link.download = `RSVP_Confirmation_${nameSlug}.png`;
+      link.download = fileName;
       link.href = image;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (err) {
       console.error('[RSVP Download Error]:', err);
-      alert('Could not download image automatically. Please take a screenshot of the receipt!');
     } finally {
       setIsDownloading(false);
     }
@@ -265,6 +267,29 @@ export default function RsvpForm() {
             </svg>
             <span>{isDownloading ? 'Generating Image...' : 'Download Confirmation'}</span>
           </button>
+
+          {previewImage && (
+            <div className="mt-4 p-4 bg-white border border-slate-200 rounded-xl text-center space-y-3 shadow-sm font-sans">
+              <p className="text-xs font-bold text-[#1D3557]">📸 Confirmation Image Ready!</p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                If automatic download did not start on your phone, <strong>tap & hold the image below</strong> to save it directly to your Photos or Gallery.
+              </p>
+              <img
+                src={previewImage}
+                alt="RSVP Confirmation Card Preview"
+                className="w-full h-auto rounded-lg border border-slate-200 shadow-sm"
+              />
+              <a
+                href={previewImage}
+                download={`RSVP_Confirmation_${(submissionData?.name || 'Guest').replace(/[^a-zA-Z0-9]/g, '_')}.png`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-4 py-2 bg-[#62839b] text-white rounded-md text-xs font-semibold"
+              >
+                Open Full Image
+              </a>
+            </div>
+          )}
         </div>
       )}
     </div>
